@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:weather_app/src/data/location.dart';
+import 'package:weather_app/src/data/weather.dart';
 import 'package:weather_app/src/services/base_weather_api.dart';
 
 part 'weather_api.g.dart';
@@ -32,11 +33,20 @@ abstract class WeatherAPI extends BaseWeatherAPI {
     return WeatherAPI(dio);
   }
 
+  /// q: Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name
   @override
   @GET('/search.json')
   Future<List<Location>> searchLocations({
     @Query('key') required String apiKey,
     @Query('q', encoded: true) required String q,
     @CancelRequest() CancelToken? cancelToken,
+  });
+
+  /// q: Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name
+  @override
+  @GET('/search.json')
+  Future<Weather> getWeather({
+    @Query('key') required String apiKey,
+    @Query('q', encoded: true) required String q,
   });
 }
