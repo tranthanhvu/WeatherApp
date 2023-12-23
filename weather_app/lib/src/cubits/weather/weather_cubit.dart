@@ -48,4 +48,16 @@ class WeatherCubit extends Cubit<WeatherState> {
       ));
     });
   }
+
+  addWeather(Weather weather) {
+    weatherRepo.addOrUpdateWeather(weather);
+
+    emit(WeatherAdded());
+  }
+
+  deleteWeather(Weather weather) {
+    weatherRepo.deleteWeather(weather);
+
+    emit(WeatherDeleted());
+  }
 }

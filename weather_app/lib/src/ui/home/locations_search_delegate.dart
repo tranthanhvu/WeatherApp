@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:weather_app/src/cubits/search_location/search_location_cubit.dart';
+import 'package:weather_app/src/router/route_utils.dart';
 import 'package:weather_app/src/ui/home/widgets/locations_widget.dart';
 
 class LocationsSearchDelegate extends SearchDelegate {
-  final Widget _content = const LocationsWidget();
-
   @override
   List<Widget>? buildActions(BuildContext context) {
     if (query.isEmpty) {
@@ -35,12 +35,23 @@ class LocationsSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return _content;
+    return _buildWidget(context);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     context.read<SearchLocationCubit>().search(text: query);
-    return _content;
+    return _buildWidget(context);
+  }
+
+  Widget _buildWidget(BuildContext context) {
+    return LocationsWidget(onLocationSelected: (location) {
+      context.pushNamed(
+        ScreenDefine.weatherDetail.name,
+        extra: location,
+      );
+
+      close(context, null);
+    });
   }
 }

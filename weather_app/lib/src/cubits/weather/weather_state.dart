@@ -37,3 +37,7 @@ class WeatherDataState extends WeatherState {
   @override
   List<Object> get props => super.props..addAll([weather, status]);
 }
+
+class WeatherAdded extends WeatherState {}
+
+class WeatherDeleted extends WeatherState {}

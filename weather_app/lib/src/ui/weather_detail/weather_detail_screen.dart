@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/generated/assets.gen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:weather_app/src/cubits/weather/weather_cubit.dart';
 import 'package:weather_app/src/data/location.dart';
+import 'package:weather_app/src/data/weather.dart';
 import 'package:weather_app/src/repositories/weather_repo.dart';
+import 'package:weather_app/src/router/route_utils.dart';
+import 'package:weather_app/src/ui/weather_detail/widgets/weather_condition_image.dart';
 import 'package:weather_app/src/utilities/formatter.dart';
 import 'package:weather_app/src/utilities/gaps.dart';
 
@@ -21,7 +24,8 @@ class WeatherDetailScreen extends StatefulWidget {
 
 class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
   late WeatherCubit _weatherCubit;
-  final double imageSize = 128;
+
+  Weather? _weather;
 
   @override
   void initState() {
@@ -42,7 +46,18 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Weather')),
+      appBar: AppBar(
+        title: const Text('Weather'),
+        actions: [
+          TextButton(
+            onPressed: _onAdd,
+            child: const Text(
+              'Add',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: _onRefresh,
         child: SingleChildScrollView(
@@ -50,7 +65,13 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
           clipBehavior: Clip.none,
           child: BlocConsumer<WeatherCubit, WeatherState>(
             bloc: _weatherCubit,
-            listener: (context, state) {},
+            listener: (context, state) {
+              if (state is WeatherDataState) {
+                _weather = state.weather;
+              } else if (state is WeatherAdded || state is WeatherDeleted) {
+                context.goNamed(ScreenDefine.home.name);
+              }
+            },
             builder: (context, state) {
               if (state is WeatherDataState) {
                 return Column(
@@ -65,18 +86,8 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                       const Text('--')
                     else ...[
                       Center(
-                        child: FadeInImage.assetNetwork(
-                          width: imageSize,
-                          height: imageSize,
-                          fadeOutDuration: const Duration(milliseconds: 100),
-                          fadeInDuration: const Duration(milliseconds: 300),
-                          placeholder: Assets.images.defaultImage.path,
-                          image:
-                              'https:${state.weather.current!.condition!.icon}',
-                          imageErrorBuilder: (context, error, stackTrace) {
-                            return Assets.images.defaultImage.image();
-                          },
-                          fit: BoxFit.cover,
+                        child: WeatherConditionImage(
+                          condition: state.weather.current!.condition!,
                         ),
                       ),
                       Text(
@@ -108,5 +119,17 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
 
   Future _onRefresh() async {
     _weatherCubit.getWeather(widget.location);
+  }
+
+  _onAdd() {
+    if (_weather == null) return;
+
+    _weatherCubit.addWeather(_weather!);
+  }
+
+  _onDelete() {
+    if (_weather == null) return;
+
+    _weatherCubit.deleteWeather(_weather!);
   }
 }

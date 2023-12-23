@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:weather_app/src/cubits/search_location/search_location_cubit.dart';
-import 'package:weather_app/src/router/route_utils.dart';
+import 'package:weather_app/src/data/location.dart';
 import 'package:weather_app/src/utilities/gaps.dart';
 
 class LocationsWidget extends StatelessWidget {
-  const LocationsWidget({super.key});
+  const LocationsWidget({super.key, required this.onLocationSelected});
+
+  final Function(Location)? onLocationSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,7 @@ class LocationsWidget extends StatelessWidget {
             return ListTile(
               title: Text(title),
               onTap: () {
-                context.pushNamed(
-                  ScreenDefine.weatherDetail.name,
-                  extra: location,
-                );
+                onLocationSelected?.call(location);
               },
             );
           },
