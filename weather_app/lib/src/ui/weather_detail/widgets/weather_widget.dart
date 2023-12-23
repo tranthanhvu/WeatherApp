@@ -4,6 +4,7 @@ import 'package:weather_app/src/data/weather.dart';
 import 'package:weather_app/src/ui/weather_detail/widgets/weather_condition_image.dart';
 import 'package:weather_app/src/utilities/formatter.dart';
 import 'package:weather_app/src/utilities/gaps.dart';
+import 'package:weather_app/src/utilities/text_styles.dart';
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({
@@ -24,10 +25,6 @@ class WeatherWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Gaps.px24,
-          Text(
-            weather.location.name,
-            textAlign: TextAlign.center,
-          ),
           if (weather.current == null)
             const Center(
               child: Padding(
@@ -46,16 +43,22 @@ class WeatherWidget extends StatelessWidget {
                   ? '${weather.current!.tempC}${temperatureUnit.unit}'
                   : '${weather.current!.tempF}${temperatureUnit.unit}',
               textAlign: TextAlign.center,
+              style: TextStyles.heading5Bold,
             ),
+            Gaps.px4,
             Text(
               weather.current!.condition?.text ?? '--',
               textAlign: TextAlign.center,
             ),
+            Gaps.px24,
             Text(
               'Updated ${Formatter.ddMMyyyyHmm.format(DateTime.fromMillisecondsSinceEpoch(
                 weather.current!.lastUpdatedEpoch * 1000,
               ))}',
               textAlign: TextAlign.center,
+              style: TextStyles.caption1Regular.copyWith(
+                color: Colors.grey,
+              ),
             )
           ]
         ],

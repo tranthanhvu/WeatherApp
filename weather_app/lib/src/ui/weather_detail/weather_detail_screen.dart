@@ -52,7 +52,7 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather'),
+        title: Text(widget.location.name),
       ),
       body: BlocConsumer<WeatherCubit, WeatherState>(
         bloc: _weatherCubit,
