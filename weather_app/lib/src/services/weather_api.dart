@@ -6,13 +6,11 @@ import 'package:weather_app/src/services/base_weather_api.dart';
 
 part 'weather_api.g.dart';
 
-const String kWeatherAPIBaseUrl = 'http://api.weatherapi.com/v1';
-
 @RestApi()
 abstract class WeatherAPI extends BaseWeatherAPI {
   factory WeatherAPI(Dio dio, {String? baseUrl}) = _WeatherAPI;
 
-  factory WeatherAPI.standard({String baseUrl = kWeatherAPIBaseUrl}) {
+  factory WeatherAPI.standard(String baseUrl) {
     var options = BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 8000), // 8s

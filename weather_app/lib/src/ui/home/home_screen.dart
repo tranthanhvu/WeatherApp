@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weathers'),
+        title: const Text('Weather'),
         leading: IconButton(
           onPressed: () => _onSettingsPressed(context),
           icon: const Icon(Icons.settings),

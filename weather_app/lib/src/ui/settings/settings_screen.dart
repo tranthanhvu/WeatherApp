@@ -5,8 +5,6 @@ import 'package:weather_app/src/cubits/settings/settings_cubit.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  // final SettingsController controller;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

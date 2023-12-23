@@ -2,12 +2,12 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multiple_result/multiple_result.dart';
+import 'package:weather_app/src/config/config.dart';
 import 'package:weather_app/src/data/weather.dart';
 import 'package:weather_app/src/error/app_exception.dart';
 import 'package:weather_app/src/repositories/error_handler.dart';
 import 'package:weather_app/src/services/base_weather_api.dart';
 import 'package:weather_app/src/services/hive_db.dart';
-import 'dart:collection';
 
 class WeatherRepo {
   const WeatherRepo({
@@ -22,7 +22,7 @@ class WeatherRepo {
     required String q,
   }) async {
     try {
-      final apiKey = '7ef408e24cfa4fd1bda174128232212';
+      final apiKey = Config.apiKey;
 
       if (q.isEmpty) {
         throw const AppException(AppErrorCode.invalidParams);
