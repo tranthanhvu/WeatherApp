@@ -31,6 +31,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       location: location,
       current: currentWeather,
     );
+
     emit(WeatherDataState(
       weather: weather,
       exist: weatherRepo.isAdded(weather),
@@ -40,6 +41,11 @@ class WeatherCubit extends Cubit<WeatherState> {
     final response = await weatherRepo.getWeather(q: location.name);
 
     response.when((success) {
+      // Update weather if it was added before
+      if (weatherRepo.isAdded(success)) {
+        weatherRepo.addOrUpdateWeather(success);
+      }
+
       emit((state as WeatherDataState).copyWith(
         status: LoadingStatus.success,
         weather: success,
