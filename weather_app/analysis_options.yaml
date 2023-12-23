@@ -28,5 +28,5 @@ linter:
 # https://dart.dev/guides/language/analysis-options
 analyzer:
   exclude: 
-    - lib/generated/**
-    - lib/*/*.g.dart
+    - lib/src/generated/**
+    - lib/src/*/*.g.dart

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -14,6 +16,21 @@ class HomeCubit extends Cubit<HomeState> {
 
   final WeatherRepo weatherRepo;
 
+  Timer? _timer;
+
+  @override
+  Future<void> close() async {
+    _timer?.cancel();
+
+    super.close();
+  }
+
+  // auto update weather for all added locations
+  start() {
+    _timer = Timer.periodic(const Duration(minutes: 15), (_) => update());
+  }
+
+  // update weather for all added locations
   update() async {
     if (state.loadingStatus == LoadingStatus.loading) {
       return;
