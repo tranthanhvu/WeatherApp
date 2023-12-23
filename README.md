@@ -21,7 +21,6 @@ Create a basic Flutter mobile app that fetches and displays current weather info
 - [x] Error Handling: Handles some common errors
 - [ ] User-Friendly UI
 - [x] Config PROD and DEV
-- [ ] Implement Cache data for offline
 - [ ] Supports dark mode 
 - [ ] Supports localization
 - [ ] Unit test
@@ -30,12 +29,12 @@ Create a basic Flutter mobile app that fetches and displays current weather info
 ------
 ## Setup environment
 Below is information about fultter and the environment details I am using:
-[✓] Flutter (Channel stable, 3.13.0, on macOS 13.5 22G74 darwin-arm64, locale en-VN)
-[✓] Android toolchain - develop for Android devices (Android SDK version 32.1.0-rc1)
-[✓] Xcode - develop for iOS and macOS (Xcode 15.0)
-[✓] Chrome - develop for the web
-[✓] Android Studio (version 2021.3)
-[✓] VS Code (version 1.85.1)
+- [x] Flutter (Channel stable, 3.13.0, on macOS 13.5 22G74 darwin-arm64, locale en-VN)
+- [x] Android toolchain - develop for Android devices (Android SDK version 32.1.0-rc1)
+- [x] Xcode - develop for iOS and macOS (Xcode 15.0)
+- [x] Chrome - develop for the web
+- [x] Android Studio (version 2021.3)
+- [x] VS Code (version 1.85.1)
 
 ## Run
 - Using vscode, open project folder
