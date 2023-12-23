@@ -44,7 +44,7 @@ abstract class WeatherAPI extends BaseWeatherAPI {
 
   /// q: Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name
   @override
-  @GET('/search.json')
+  @GET('/current.json')
   Future<Weather> getWeather({
     @Query('key') required String apiKey,
     @Query('q', encoded: true) required String q,

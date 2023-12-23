@@ -6,7 +6,7 @@ part 'location.g.dart';
 @JsonSerializable()
 class Location extends Equatable {
   const Location({
-    required this.id,
+    this.id,
     required this.name,
     required this.lat,
     required this.lon,
@@ -15,7 +15,7 @@ class Location extends Equatable {
   });
 
   @JsonKey(name: 'id')
-  final int id;
+  final int? id;
 
   @JsonKey(name: 'name')
   final String name;

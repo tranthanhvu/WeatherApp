@@ -8,7 +8,7 @@ part of 'current_weather.dart';
 
 CurrentWeather _$CurrentWeatherFromJson(Map<String, dynamic> json) =>
     CurrentWeather(
-      lastUpdatedEpoch: (json['last_updated_epoch'] as num).toDouble(),
+      lastUpdatedEpoch: json['last_updated_epoch'] as int,
       tempC: (json['temp_c'] as num).toDouble(),
       tempF: (json['temp_f'] as num).toDouble(),
       condition: json['condition'] == null

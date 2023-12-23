@@ -14,7 +14,7 @@ class CurrentWeather extends Equatable {
   });
 
   @JsonKey(name: 'last_updated_epoch')
-  final double lastUpdatedEpoch;
+  final int lastUpdatedEpoch;
 
   @JsonKey(name: 'temp_c')
   final double tempC;

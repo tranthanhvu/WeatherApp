@@ -8,6 +8,7 @@ abstract class BaseWeatherAPI {
     required String q,
     CancelToken? cancelToken,
   });
+
   Future<Weather> getWeather({
     required String apiKey,
     required String q,

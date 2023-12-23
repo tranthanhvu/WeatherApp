@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:weather_app/src/cubits/search_location/search_location_cubit.dart';
 import 'package:weather_app/src/repositories/location_repo.dart';
+import 'package:weather_app/src/repositories/weather_repo.dart';
 import 'package:weather_app/src/router/app_router.dart';
 import 'package:weather_app/src/services/base_weather_api.dart';
 
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (context) => LocationRepo(api: api)),
+        RepositoryProvider(create: (context) => WeatherRepo(api: api)),
       ],
       child: MultiBlocProvider(
         providers: [

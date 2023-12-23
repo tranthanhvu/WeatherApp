@@ -76,7 +76,7 @@ class _WeatherAPI implements WeatherAPI {
     )
             .compose(
               _dio.options,
-              '/search.json',
+              '/current.json',
               queryParameters: queryParameters,
               data: _data,
             )
