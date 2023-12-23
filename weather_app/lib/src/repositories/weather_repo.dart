@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -6,6 +7,7 @@ import 'package:weather_app/src/error/app_exception.dart';
 import 'package:weather_app/src/repositories/error_handler.dart';
 import 'package:weather_app/src/services/base_weather_api.dart';
 import 'package:weather_app/src/services/hive_db.dart';
+import 'dart:collection';
 
 class WeatherRepo {
   const WeatherRepo({
@@ -47,5 +49,11 @@ class WeatherRepo {
 
   deleteWeather(Weather weather) async {
     db.weathers.delete(weather.key);
+  }
+
+  bool isAdded(Weather weather) {
+    final obj = db.weathers.values
+        .firstWhereOrNull((element) => element.key == weather.key);
+    return obj != null;
   }
 }

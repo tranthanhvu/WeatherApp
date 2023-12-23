@@ -26,11 +26,13 @@ class WeatherCubit extends Cubit<WeatherState> {
       currentWeather = weatherDataState.weather.current;
     }
 
+    final weather = Weather(
+      location: location,
+      current: currentWeather,
+    );
     emit(WeatherDataState(
-      weather: Weather(
-        location: location,
-        current: currentWeather,
-      ),
+      weather: weather,
+      exist: weatherRepo.isAdded(weather),
       status: LoadingStatus.loading,
     ));
 

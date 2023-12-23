@@ -28,6 +28,7 @@ dependencies:
   flutter_gen: ^5.3.2 # gennerator for assets
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  collection: ^1.17.2 # for using the Iterable extension (firstWhereOrNull)
   
 
 dev_dependencies:

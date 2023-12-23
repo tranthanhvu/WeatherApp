@@ -10,57 +10,58 @@ class WeatherTile extends StatelessWidget {
   const WeatherTile({
     super.key,
     required this.weather,
+    this.onTap,
   });
 
   final Weather weather;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(weather.location.name),
-              Row(
-                children: [
-                  WeatherConditionImage(
-                    condition: weather.current!.condition!,
-                    imageSize: 64,
-                  ),
-                  Gaps.px12,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          state.temperatureUnit == TemperatureUnit.celsius
-                              ? '${weather.current!.tempC}${state.temperatureUnit.unit}'
-                              : '${weather.current!.tempF}${state.temperatureUnit.unit}',
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          weather.current!.condition?.text ?? '--',
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          'Updated ${Formatter.ddMMyyyyHmm.format(DateTime.fromMillisecondsSinceEpoch(
-                            weather.current!.lastUpdatedEpoch * 1000,
-                          ))}',
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+        return InkWell(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(weather.location.name),
+                Row(
+                  children: [
+                    WeatherConditionImage(
+                      condition: weather.current!.condition!,
+                      imageSize: 64,
                     ),
-                  ),
-                ],
-              )
-            ],
+                    Gaps.px12,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            state.temperatureUnit == TemperatureUnit.celsius
+                                ? '${weather.current!.tempC}${state.temperatureUnit.unit}'
+                                : '${weather.current!.tempF}${state.temperatureUnit.unit}',
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            weather.current!.condition?.text ?? '--',
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            'Updated ${Formatter.ddMMyyyyHmm.format(DateTime.fromMillisecondsSinceEpoch(
+                              weather.current!.lastUpdatedEpoch * 1000,
+                            ))}',
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         );
       },

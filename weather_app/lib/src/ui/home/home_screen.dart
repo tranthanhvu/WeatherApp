@@ -60,6 +60,12 @@ class HomeScreen extends StatelessWidget {
 
         return WeatherTile(
           weather: weather,
+          onTap: () {
+            context.pushNamed(
+              ScreenDefine.weatherDetail.name,
+              extra: weather.location,
+            );
+          },
         );
       },
       separatorBuilder: (context, index) {
