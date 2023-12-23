@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/src/cubits/search_location/search_location_cubit.dart';
 import 'package:weather_app/src/data/location.dart';
 import 'package:weather_app/src/utilities/gaps.dart';
+import 'package:weather_app/src/utilities/utils.dart';
 
 class LocationsWidget extends StatelessWidget {
   const LocationsWidget({super.key, required this.onLocationSelected});
@@ -11,8 +12,12 @@ class LocationsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchLocationCubit, SearchLocationState>(
-        builder: (context, state) {
+    return BlocConsumer<SearchLocationCubit, SearchLocationState>(
+        listener: (context, state) {
+      if (state is SearchLocationError) {
+        Utils.showErrorMsg(state.e);
+      }
+    }, builder: (context, state) {
       if (state is SearchLocationSuccess) {
         return ListView.separated(
           itemBuilder: (context, index) {

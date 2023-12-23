@@ -11,6 +11,7 @@ import 'package:weather_app/src/router/route_utils.dart';
 import 'package:weather_app/src/ui/weather_detail/widgets/adding_widget.dart';
 import 'package:weather_app/src/ui/weather_detail/widgets/deleting_widget.dart';
 import 'package:weather_app/src/ui/weather_detail/widgets/weather_widget.dart';
+import 'package:weather_app/src/utilities/utils.dart';
 
 class WeatherDetailScreen extends StatefulWidget {
   const WeatherDetailScreen({
@@ -59,6 +60,9 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
         listener: (context, state) {
           if (state is WeatherDataState) {
             _weather = state.weather;
+            if (state.e != null && state.e!.isNotEmpty) {
+              Utils.showErrorMsg(state.e!);
+            }
           } else if (state is WeatherAdded || state is WeatherDeleted) {
             context.goNamed(ScreenDefine.home.name);
           }

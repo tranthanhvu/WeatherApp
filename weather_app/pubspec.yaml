@@ -30,6 +30,7 @@ dependencies:
   hive_flutter: ^1.1.0
   collection: ^1.17.2 # for using the Iterable extension (firstWhereOrNull)
   flutter_dotenv: ^5.1.0
+  fluttertoast: ^8.2.4
   
 
 dev_dependencies:

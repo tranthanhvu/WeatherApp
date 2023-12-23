@@ -7,6 +7,7 @@ import 'package:weather_app/src/router/route_utils.dart';
 import 'package:weather_app/src/ui/home/locations_search_delegate.dart';
 import 'package:weather_app/src/ui/home/widgets/weather_tile.dart';
 import 'package:weather_app/src/utilities/gaps.dart';
+import 'package:weather_app/src/utilities/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,7 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
-          if (state.e != null) {}
+          if (state.e != null && state.e!.isNotEmpty) {
+            Utils.showErrorMsg(state.e!);
+          }
         },
         builder: (context, state) {
           return ValueListenableBuilder(
