@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:weather_app/src/cubits/settings/settings_cubit.dart';
 import 'package:weather_app/src/cubits/weather/weather_cubit.dart';
 import 'package:weather_app/src/data/location.dart';
 import 'package:weather_app/src/data/weather.dart';
@@ -24,6 +25,7 @@ class WeatherDetailScreen extends StatefulWidget {
 
 class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
   late WeatherCubit _weatherCubit;
+  late SettingsCubit _settingsCubit;
 
   Weather? _weather;
 
@@ -35,6 +37,8 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
     _weatherCubit = WeatherCubit(weatherRepo: weatherRepo);
 
     _weatherCubit.getWeather(widget.location);
+
+    _settingsCubit = context.read<SettingsCubit>();
   }
 
   @override
@@ -91,7 +95,10 @@ class _WeatherDetailScreenState extends State<WeatherDetailScreen> {
                         ),
                       ),
                       Text(
-                        '${state.weather.current!.tempC}',
+                        _settingsCubit.state.temperatureUnit ==
+                                TemperatureUnit.celsius
+                            ? '${state.weather.current!.tempC}${_settingsCubit.state.temperatureUnit.unit}'
+                            : '${state.weather.current!.tempF}${_settingsCubit.state.temperatureUnit.unit}',
                         textAlign: TextAlign.center,
                       ),
                       Text(

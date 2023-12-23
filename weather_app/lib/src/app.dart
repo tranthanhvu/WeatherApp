@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/src/cubits/home/home_cubit.dart';
 import 'package:weather_app/src/cubits/search_location/search_location_cubit.dart';
+import 'package:weather_app/src/cubits/settings/settings_cubit.dart';
 import 'package:weather_app/src/repositories/location_repo.dart';
+import 'package:weather_app/src/repositories/temperature_repo.dart';
 import 'package:weather_app/src/repositories/weather_repo.dart';
 import 'package:weather_app/src/router/app_router.dart';
 import 'package:weather_app/src/services/base_weather_api.dart';
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider(create: (context) => LocationRepo(api: api)),
         RepositoryProvider(create: (context) => WeatherRepo(api: api, db: db)),
+        RepositoryProvider(create: (context) => TemperatureRepo(db: db)),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -38,9 +41,18 @@ class MyApp extends StatelessWidget {
               weatherRepo: context.read<WeatherRepo>(),
             ),
           ),
+          BlocProvider(
+            create: (context) => SettingsCubit(
+              temperatureRepo: context.read<TemperatureRepo>(),
+            )..loadData(),
+          ),
         ],
-        child: MaterialApp.router(
-          routerConfig: router,
+        child: BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, state) {
+            return MaterialApp.router(
+              routerConfig: router,
+            );
+          },
         ),
       ),
     );

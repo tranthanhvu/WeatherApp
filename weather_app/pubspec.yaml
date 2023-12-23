@@ -44,7 +44,7 @@ dev_dependencies:
 
 
 flutter_gen:
-  output: lib/generated/
+  output: lib/src/generated/
   integrations:
     flutter_svg: true
 

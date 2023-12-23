@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:weather_app/generated/assets.gen.dart';
 import 'package:weather_app/src/data/weather_condition.dart';
+import 'package:weather_app/src/generated/assets.gen.dart';
 
 class WeatherConditionImage extends StatelessWidget {
   const WeatherConditionImage({
