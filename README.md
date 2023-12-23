@@ -39,7 +39,7 @@ Below is information about fultter and the environment details I am using:
 ## Run
 - Using vscode, open project folder
 - From the terminal, run `flutter run`. Default the environment will be DEV
-- In case you want to run PROD, let's use `flutter run --dart-define ENV=PROD`. But, at this time, configuration for PROD and DEV is the same.
+- In case you want to run PROD, please use `flutter run --dart-define ENV=PROD`. But, at this time, the configuration for PROD and DEV is the same.
 Note: I usually use vscode for work, however, in case of Android Studio, things may be different.
 
 ## Build app
@@ -55,4 +55,4 @@ Note: I usually use vscode for work, however, in case of Android Studio, things 
 - Otherwise: `flutter pub run build_runner build`
 
 ## Generate Code:
-- From the teminal, run: `flutter pub run build_runner build`
+- From the terminal, run: `flutter pub run build_runner build`
