@@ -1,7 +1,5 @@
 part of 'weather_cubit.dart';
 
-enum LoadingStatus { loading, success, failure }
-
 sealed class WeatherState extends Equatable {
   const WeatherState();
 

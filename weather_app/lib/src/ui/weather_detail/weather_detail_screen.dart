@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weather_app/src/cubits/settings/settings_cubit.dart';
 import 'package:weather_app/src/cubits/weather/weather_cubit.dart';
+import 'package:weather_app/src/data/loading_status.dart';
 import 'package:weather_app/src/data/location.dart';
 import 'package:weather_app/src/data/weather.dart';
 import 'package:weather_app/src/repositories/weather_repo.dart';

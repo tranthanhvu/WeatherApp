@@ -56,4 +56,19 @@ class WeatherRepo {
         .firstWhereOrNull((element) => element.key == weather.key);
     return obj != null;
   }
+
+  Future<Result<List<Weather>, Exception>> updateWeatherForAll() async {
+    try {
+      final apiKey = Config.apiKey;
+
+      final tasks = db.weathers.values
+          .map((e) => api.getWeather(apiKey: apiKey, q: e.location.name));
+
+      final responses = await Future.wait(tasks);
+
+      return Success(responses);
+    } catch (e) {
+      return handleError(e);
+    }
+  }
 }

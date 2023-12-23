@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:weather_app/src/cubits/settings/settings_cubit.dart';
 import 'package:weather_app/src/data/weather.dart';
 import 'package:weather_app/src/ui/weather_detail/widgets/weather_condition_image.dart';

@@ -8,8 +8,23 @@ import 'package:weather_app/src/ui/home/locations_search_delegate.dart';
 import 'package:weather_app/src/ui/home/widgets/weather_tile.dart';
 import 'package:weather_app/src/utilities/gaps.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late HomeCubit _homeCubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _homeCubit = context.read<HomeCubit>();
+    _homeCubit.update();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +45,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<HomeCubit, HomeState>(
+      body: BlocConsumer<HomeCubit, HomeState>(
+        listener: (context, state) {
+          if (state.e != null) {}
+        },
         builder: (context, state) {
           return ValueListenableBuilder(
             valueListenable: state.stream,
@@ -45,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               }
 
               List<Weather> list = value.values.toList();
-              return _buildListView(list);
+              return _buildListView(context, list: list);
             },
           );
         },
@@ -53,29 +71,36 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildListView(List<Weather> list) {
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        final weather = list[index];
+  Widget _buildListView(BuildContext context, {required List<Weather> list}) {
+    return RefreshIndicator(
+      onRefresh: () async => await _onRefresh(context),
+      child: ListView.separated(
+        itemBuilder: (context, index) {
+          final weather = list[index];
 
-        return WeatherTile(
-          weather: weather,
-          onTap: () {
-            context.pushNamed(
-              ScreenDefine.weatherDetail.name,
-              extra: weather.location,
-            );
-          },
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Gaps.px12;
-      },
-      itemCount: list.length,
+          return WeatherTile(
+            weather: weather,
+            onTap: () {
+              context.pushNamed(
+                ScreenDefine.weatherDetail.name,
+                extra: weather.location,
+              );
+            },
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Gaps.px12;
+        },
+        itemCount: list.length,
+      ),
     );
   }
 
   _onSettingsPressed(BuildContext context) {
     context.pushNamed(ScreenDefine.settings.name);
+  }
+
+  Future _onRefresh(BuildContext context) async {
+    await context.read<HomeCubit>().update();
   }
 }
