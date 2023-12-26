@@ -3,7 +3,7 @@ import 'package:weather_app/src/data/location.dart';
 
 void main() {
   group('Location', () {
-    test('creates Location object from json successfuly', () {
+    test('creates a Location object from json successfuly', () {
       expect(
           Location.fromJson(
             const <String, dynamic>{
@@ -17,6 +17,7 @@ void main() {
             },
           ),
           const Location(
+            id: 2717932,
             name: 'Hanoi',
             lat: 21.03,
             lon: 105.85,

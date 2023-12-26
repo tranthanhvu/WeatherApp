@@ -4,7 +4,7 @@ import 'package:weather_app/src/data/weather_condition.dart';
 
 void main() {
   group('CurrentWeather', () {
-    test('creates CurrentWeahter object from json successfully', () {
+    test('creates a CurrentWeahter object from json successfully', () {
       expect(
         CurrentWeather.fromJson(
           const <String, dynamic>{
