@@ -21,5 +21,9 @@ Result<T, Exception> handleError<T>(Object e) {
     return const Error(AppException(AppErrorCode.parseError));
   }
 
+  if (e is Exception) {
+    return Error(e);
+  }
+
   return const Error(AppException(AppErrorCode.unknown));
 }

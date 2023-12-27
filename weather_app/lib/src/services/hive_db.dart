@@ -41,6 +41,10 @@ class HiveDB {
   setIsUsingTempC(bool value) async => await appData.put(kUseTempC, value);
   bool isUsingTempC() => appData.get(kUseTempC) as bool? ?? true;
 
+  Iterable<Weather> getWeathers() {
+    return weathers.values;
+  }
+
   deleteAll() async {
     await Future.wait([
       weathers.clear(),

@@ -52,7 +52,8 @@ class WeatherRepo {
   }
 
   bool isAdded(Weather weather) {
-    final obj = db.weathers.values
+    final obj = db
+        .getWeathers()
         .firstWhereOrNull((element) => element.key == weather.key);
     return obj != null;
   }
@@ -61,7 +62,8 @@ class WeatherRepo {
     try {
       final apiKey = Config.apiKey;
 
-      final tasks = db.weathers.values
+      final tasks = db
+          .getWeathers()
           .map((e) => api.getWeather(apiKey: apiKey, q: e.location.name));
 
       final responses = await Future.wait(tasks);
